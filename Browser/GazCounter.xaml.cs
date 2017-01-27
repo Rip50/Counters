@@ -11,8 +11,9 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Awesomium.Core;
+using mshtml;
 
 namespace Browser
 {
@@ -36,13 +37,14 @@ namespace Browser
         {
             Data = data;
             InitializeComponent();
+            Browser.Navigate("http://www.sargc.ru/counters.html");
         }
 
         private dynamic GetProperty(dynamic form, string name)
         {
             if (form?.all == null)
                 return null;
-            var property = ((IEnumerable)form.all).Cast<dynamic>().FirstOrDefault(o => o.GetType().GetProperty("name") != null && o.name?.Equals(name));
+            var property = ((IEnumerable)form.all).Cast<dynamic>().FirstOrDefault(o => o.GetType().GetProperty("name") != null && o.name!=null && o.name.Equals(name));
             return property;
         }
 
@@ -53,9 +55,16 @@ namespace Browser
                 prop.value = value;
         }
 
-        private void Browser_OnLoadingFrameComplete(object sender, FrameEventArgs e)
+        private void Browser_OnLoadCompleted(object sender, NavigationEventArgs e)
         {
-            Browser.WebSession.
+            var doc = Browser.Document as IHTMLDocument2;
+            var counterForm = doc?.forms?.Cast<dynamic>().FirstOrDefault(form => form.id != null && form.id.Equals("form_cnt"));
+            if (counterForm == null) return;
+            if (counterForm.all == null) return;
+
+            SetProperty(counterForm, "account", Data.Id);
+            SetProperty(counterForm, "fam", Data.Name);
+            SetProperty(counterForm, "indication", $"{Data.Current}");
         }
     }
 }

@@ -4,13 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Browser"
-        xmlns:awe="http://schemas.awesomium.com/winfx"
         mc:Ignorable="d"
         Title="GazCounter" Height="300" Width="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <awe:WebControl Source="http://www.sargc.ru/counters.html" Name="Browser" LoadingFrameComplete="Browser_OnLoadingFrameComplete"></awe:WebControl>
+        <WebBrowser Name="Browser" LoadCompleted="Browser_OnLoadCompleted"></WebBrowser>
     </Grid>
 </Window>

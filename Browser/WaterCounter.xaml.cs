@@ -11,8 +11,8 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Awesomium.Core;
 
 namespace Browser
 {
@@ -47,6 +47,7 @@ namespace Browser
             Id = id;
             Impl = impl;
             InitializeComponent();
+            Browser.Navigate("http://saratovvodokanal.ru/statement/");
         }
 
         private dynamic GetProperty(dynamic form, string name)
@@ -63,10 +64,10 @@ namespace Browser
             if (prop != null)
                 prop.value = value;
         }
-
-        private void Browser_OnLoadingFrameComplete(object sender, FrameEventArgs e)
+        
+        private void Browser_OnLoadCompleted(object sender, NavigationEventArgs e)
         {
-            throw new NotImplementedException();
+            DialogResult = true;
         }
     }
 }

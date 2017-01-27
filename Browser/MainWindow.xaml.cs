@@ -14,7 +14,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Awesomium.Core;
 using mshtml;
 using NavigationEventArgs = System.Windows.Navigation.NavigationEventArgs;
 
@@ -198,14 +197,6 @@ namespace Browser
             InitializeComponent();
         }
         
-
-        //example
-        //    var paymentForm = doc?.forms?.Cast<dynamic>().FirstOrDefault(form => form.id != null && form.id.Equals("payment-form"));
-        //    if (paymentForm == null) return;
-        //    if(paymentForm?.all == null) return;
-        //    SetProperty(paymentForm, "Payments[0].CtnPrefix", "967");
-        //    SetProperty(paymentForm, "Payments[0].Ctn", "800-84-86");
-        //    SetProperty(paymentForm, "Payments[0].Sum", "100");
 
         protected virtual void OnSessionSucceeded()
         {
